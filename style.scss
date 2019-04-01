@@ -1,0 +1,41 @@
+body {
+    background-color: #55ACEE;
+    color: #fff;
+    font-family: sans-serif;
+}
+main {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h1 {
+        margin: 100px;
+    }
+    .buttons {
+        margin: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .trigger, .tweet {
+            width: 300px;
+            height: 100px;
+            margin: 15px;
+            background: none;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .tweet>i  {
+            margin-right: 10px;
+        }
+    }
+}
