@@ -1,4 +1,8 @@
 
+document.addEventListener('DOMContentLoaded', function() {
+    getJoke();
+})
+
 var url = 'http://api.icndb.com/jokes/random';
 var paragraph = document.getElementById('joke');
 
@@ -19,4 +23,5 @@ function getJoke() {
   }
 
 var response = JSON.parse(xhr.response);
+
 
