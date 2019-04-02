@@ -1,27 +1,28 @@
+// var url = 'https://restcountries.eu/rest/v1/name/';
+var url = 'https://restcountries.eu/rest/v2/{name}';
+var countriesList = document.getElementById('countries');
 
-document.addEventListener('DOMContentLoaded', function() {
-    getJoke();
-})
+document.getElementById('search').addEventListener('click', searchCountries);
 
-var url = 'http://api.icndb.com/jokes/random';
-var paragraph = document.getElementById('joke');
-
-
-var button = document.getElementById('get-joke');
-button.addEventListener('click', function(){
-  getJoke();
-});
-
-function getJoke() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.addEventListener('load', function(){
-      var response = JSON.parse(xhr.response);
-      paragraph.innerHTML = response.value.joke;
-    });
-    xhr.send();
+function searchCountries() {
+  var countryName = document.getElementById('country-name').value;
+  if(!countryName.length) {
+    countryName = 'Poland';
   }
 
-var response = JSON.parse(xhr.response);
+  fetch(url + countryName)
+    .then(function(resp) {
+        return resp.json();
+    })
+    .then(showCountriesList);
 
+  function showCountriesList(resp) {
+    countriesList.innerHTML = '';
+    resp.forEach(function(item) {
+      var liEl = document.createElement('li');
+      liEl.innerText = item.name;
+      countriesList.appendChild(liEl);
+    });
+  }
+}
 
