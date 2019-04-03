@@ -12,11 +12,11 @@ function searchCountries() {
     countryName = 'Poland';
   }
 
-  fetch(url + countryName)
+  fetch(url + countryName, { cache: "no-store" })
   .then(function(resp) {
     return resp.json();
   })
-  .then(showCountriesList);
+  .then(showCountriesList); 
 
 }
 
@@ -31,12 +31,12 @@ function showCountriesList(resp) {
 
 function searchCurrency() {
   var currencyName = document.getElementById('currency-name').value;
-  if(!currencyList.length) {
+  if(!currencyName.length) {
     currencyName = 'PLN';
   }
 
 
-  fetch(currencyURL + currencyName, no-cache)
+  fetch(currencyURL + currencyName, { cache: "no-store" })
     .then(function(resp) {
       return resp.json();
     })
@@ -46,9 +46,9 @@ function searchCurrency() {
   function showCurrencyList(resp) {
     currencyList.innerHTML = '';
     resp.forEach(function(item) {
-      var liEl = document.createElement('li');
-      liEl.innexText = item.currencies;
-      currencyList.appendChild(liEl);
+      var liSecEl = document.createElement('li');
+      liSecEl.innerText = item.name;
+      currencyList.appendChild(liSecEl);
     });
   }
   
