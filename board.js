@@ -26,11 +26,12 @@ document.querySelector('#board .create-column').addEventListener('click', functi
       board.addColumn(column);
     });
 });
-	
+  
+
 function initSortable(id) {
-  	var el = document.getElementById(id);
-  	var sortable = Sortable.create(el, {
-    	group: 'kanban',
-    	sort: true
-  	});
+  var el = document.getElementById(id);
+  var sortable = Sortable.create(el, {
+    group: 'kanban',
+    sort: true
+  });
 }

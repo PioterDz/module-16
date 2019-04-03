@@ -7,7 +7,7 @@ function Column(id, name) {
 function Column(name) {
   	var self = this;
 
-  	this.id = randomString();
+
   	this.name = name;
   	this.element = generateTemplate('column-template', { name: this.name, id: this.id });
 
