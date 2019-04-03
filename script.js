@@ -1,8 +1,11 @@
 var url = 'https://restcountries.eu/rest/v1/name/';
 // var url = 'https://restcountries.eu/rest/v2/{name}';
 var countriesList = document.getElementById('countries');
+var currencyURL = 'https://restcountries.eu/rest/v2/currency/{currency}';
+var currencyList = document.getElementById('currency');
 
 document.getElementById('search').addEventListener('click', searchCountries);
+document.getElementById('search-currency').addEventListener('click', searchCurrency);
 
 function searchCountries() {
   var countryName = document.getElementById('country-name').value;
@@ -11,18 +14,41 @@ function searchCountries() {
   }
 
   fetch(url + countryName)
-    .then(function(resp) {
-        return resp.json();
-    })
-    .then(showCountriesList);
+  .then(function(resp) {
+    return resp.json();
+  })
+  .then(showCountriesList);
 
-  function showCountriesList(resp) {
-    countriesList.innerHTML = '';
+function showCountriesList(resp) {
+  countriesList.innerHTML = '';
+  resp.forEach(function(item) {
+    var liEl = document.createElement('li');
+    liEl.innerText = item.name;
+    countriesList.appendChild(liEl);
+  });
+}
+
+function searchCurrency() {
+  var currencyName = document.getElementById('currency-name').value;
+  if(!currencyList.length) {
+    currencyName = 'PLN';
+  }
+}
+
+  fetch(currencyURL + currencyName)
+    .then(function(resp) {
+      return resp.json();
+    })
+    .then(showCurrencyList);
+
+  function showCurrencyList(resp) {
+    currencyList.innerHTML = '';
     resp.forEach(function(item) {
-      var liEl = document.createElement('li');
-      liEl.innerText = item.name;
-      countriesList.appendChild(liEl);
+      var liSecEl = document.createElement('li');
+      liSecEl.innexText = item.currencies;
+      currencyList.appendChild(liSecEl);
     });
   }
+  
 }
 
