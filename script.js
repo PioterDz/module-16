@@ -40,9 +40,9 @@ function searchCurrency() {
     .then(function(resp) {
       return resp.json();
     })
-    .then(showCurrencyList);
-    .catch(twojError => {
-      console.log('twojError', twojError);
+    .then(showCurrencyList)
+    .catch(error => {
+      wrongInputStatement();
     })
 }
 
