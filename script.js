@@ -35,21 +35,31 @@ function searchCurrency() {
     currencyName = 'PLN';
   }
 
-
   fetch(currencyURL + currencyName, { cache: "no-store" })
+
     .then(function(resp) {
       return resp.json();
     })
     .then(showCurrencyList);
+    .catch(twojError => {
+      console.log('twojError', twojError);
+    })
 }
+
+var liSecEl = document.createElement('li');
 
   function showCurrencyList(resp) {
     currencyList.innerHTML = '';
     resp.forEach(function(item) {
-      var liSecEl = document.createElement('li');
       liSecEl.innerText = item.name;
       currencyList.appendChild(liSecEl);
     });
+  }
+
+  function wrongInputStatement() {
+    currencyList.innerHTML = '';
+    liSecEl.innerText = 'You had just written bullshit here. Please try again';
+    currencyList.appendChild(liSecEl);
   }
   
 
