@@ -2,16 +2,16 @@ var url = 'https://restcountries.eu/rest/v1/name/';
 var countriesList = document.getElementById('countries');
 var currencyURL = 'https://restcountries.eu/rest/v2/currency/';
 var currencyList = document.getElementById('currency');
-
+var countryName = 'Poland';
 document.getElementById('search').addEventListener('click', searchCountries);
 document.getElementById('search-currency').addEventListener('click', searchCurrency);
 
 
 
 function searchCountries() {
-  var countryName = document.getElementById('country-name').value;
-  if(!countryName.length) {
-    countryName = 'Poland';
+  
+  if(countryName.length) {
+    countryName = document.getElementById('country-name').value;
   }
 
   fetch(url + countryName, { cache: "no-store" })
@@ -25,8 +25,8 @@ function searchCountries() {
 }
 
 function showCountriesList(resp) {
+
   countriesList.innerHTML = '';
-  console.log(item.name);
   var filteredArrayForCountries = resp.filter(item => item.name.includes(countryName));
 
   filteredArrayForCountries.forEach(function(item) {
