@@ -8,8 +8,8 @@ document.getElementById('search-currency').addEventListener('click', searchCurre
 
 
 function searchCountries() {
-  var countryNameValue = document.getElementById('country-name').value;
-  countryName = countryNameValue.toLowerCase();
+  var countryName = document.getElementById('country-name').value;
+  // countryName = countryNameValue.toLowerCase();
   
   if(!countryName.length) {
     countryName = 'Poland';
@@ -30,14 +30,19 @@ function showCountriesList(resp) {
 
   countriesList.innerHTML = '';
 
-  var lowerCasedArray = resp.map(val => val.name.toLowerCase());
+  // var lowerCasedArray = resp.map(val => val.name.toLowerCase());
   
-  var filteredArrayForCountries = lowerCasedArray.filter(item => item.includes(countryName));
-
-  filteredArrayForCountries.forEach(function(item) {
-    if (item.includes(countryName)) {
+  // var filteredArrayForCountries = lowerCasedArray.filter(function(item) {
+  //   console.log(item, 'item');
+  //   return item.includes(countryName);
+    
+  // })
+  // console.log(filteredArrayForCountries, 'filtered');
+  resp.forEach(function(item) {
+    if (item.name.includes(countryName)) {
+      resp.filter(item => item.name.toLowerCase().includes(countryName.toLowerCase()));
       var liEl = document.createElement('li');
-      liEl.innerText = item.charAt(0).toUpperCase() + item.slice(1);
+      liEl.innerText = item.name.charAt(0).toUpperCase() + item.name.slice(1);
       countriesList.appendChild(liEl);
     }
   });
