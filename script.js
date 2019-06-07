@@ -39,12 +39,10 @@ function showCountriesList(resp) {
   // })
   // console.log(filteredArrayForCountries, 'filtered');
   resp.forEach(function(item) {
-    if (item.name.includes(countryName)) {
       resp.filter(item => item.name.toLowerCase().includes(countryName.toLowerCase()));
       var liEl = document.createElement('li');
       liEl.innerText = item.name.charAt(0).toUpperCase() + item.name.slice(1);
       countriesList.appendChild(liEl);
-    }
   });
 }
 
