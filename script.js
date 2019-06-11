@@ -8,8 +8,7 @@ document.getElementById('search-currency').addEventListener('click', searchCurre
 
 
 function searchCountries() {
-  var countryName = document.getElementById('country-name').value;
-  // countryName = countryNameValue.toLowerCase();
+  countryName = document.getElementById('country-name').value;
   
   if(!countryName.length) {
     countryName = 'Poland';
@@ -30,16 +29,9 @@ function showCountriesList(resp) {
 
   countriesList.innerHTML = '';
 
-  // var lowerCasedArray = resp.map(val => val.name.toLowerCase());
-  
-  // var filteredArrayForCountries = lowerCasedArray.filter(function(item) {
-  //   console.log(item, 'item');
-  //   return item.includes(countryName);
-    
-  // })
-  // console.log(filteredArrayForCountries, 'filtered');
-  resp.forEach(function(item) {
-      resp.filter(item => item.name.toLowerCase().includes(countryName.toLowerCase()));
+  var filteredResp = resp.filter(item => item.name.toLowerCase().includes(countryName.toLowerCase()));
+
+  filteredResp.forEach(function(item) {
       var liEl = document.createElement('li');
       liEl.innerText = item.name.charAt(0).toUpperCase() + item.name.slice(1);
       countriesList.appendChild(liEl);
