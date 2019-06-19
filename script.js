@@ -1,27 +1,113 @@
+var url = 'https://restcountries.eu/rest/v1/name/';
+var countriesList = document.getElementById('countries');
+var currencyURL = 'https://restcountries.eu/rest/v2/currency/';
+var currencyList = document.getElementById('currency');
+var countryName = '';
+document.getElementById('search').addEventListener('click', searchCountries);
+document.getElementById('search-currency').addEventListener('click', searchCurrency);
 
-document.addEventListener('DOMContentLoaded', function() {
-    getJoke();
-})
 
-var url = 'http://api.icndb.com/jokes/random';
-var paragraph = document.getElementById('joke');
-
-
-var button = document.getElementById('get-joke');
-button.addEventListener('click', function(){
-  getJoke();
-});
-
-function getJoke() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.addEventListener('load', function(){
-      var response = JSON.parse(xhr.response);
-      paragraph.innerHTML = response.value.joke;
-    });
-    xhr.send();
+function searchCountries() {
+  countryName = document.getElementById('country-name').value;
+  
+  if(!countryName.length) {
+    countryName = 'Poland';
   }
 
-var response = JSON.parse(xhr.response);
+  fetch(url + countryName, { cache: "no-store" })
+  .then(function(resp) {
+    return resp.json();
+  })
+  .then(showCountriesList)
+  .catch(error => {
+    console.log('catch', error);
+    wrongInputStatementCountry();
+  })
+}
+
+function showCountriesList(resp) {
+
+  countriesList.innerHTML = '';
+
+  var filteredResp = resp.filter(item => item.name.toLowerCase().includes(countryName.toLowerCase()));
+
+  filteredResp.forEach(function(item) {
+      var liEl = document.createElement('li');
+      liEl.innerText = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+      countriesList.appendChild(liEl);
+  });
+}
+
+//  DRUGI SPOSÓB
+
+// function showCountriesList(resp) {
+//   countriesList.innerHTML = '';
+
+//   resp.forEach(function(item) {
+//     if (item.name.includes(countryName)) {
+//       var liEl = document.createElement('li');
+//       liEl.innerText = item.name;
+//       countriesList.appendChild(liEl);
+//     }
+//   });
+// }
+
+function searchCurrency() {
+  var currencyName = document.getElementById('currency-name').value;
+  if(!currencyName.length) {
+    currencyName = 'PLN';
+  }
+
+  fetch(currencyURL + currencyName, { cache: "no-store" })
+
+  .then(function(resp) {
+    return resp.json();
+  })
+  .then(showCurrencyList)
+  .catch(error => {
+    wrongInputStatementCurrency();
+  })
+}
+
+  function showCurrencyList(resp) {
+    currencyList.innerHTML = '';
+    var filteredArray = resp.filter(item => item.currencies.length === 1);
+
+    filteredArray.forEach(function(item) {
+      secLi = document.createElement('li');
+      secLi.innerText = item.name;
+      currencyList.appendChild(secLi);
+    });
+  }
+
+  // SPOSÓB DRUGI
+
+  // function showCurrencyList(resp) {
+  //   currencyList.innerHTML = '';
+    
+  //   resp.forEach(function(item) {
+  //     if (item.currencies.length === 1) {
+  //       secLi = document.createElement('li');
+  //       secLi.innerText = item.name;
+  //       currencyList.appendChild(secLi);
+  //     }
+
+  //   });
+  // }
+
+  function wrongInputStatementCountry() {
+    liEl = document.createElement('li');
+    countriesList.innerHTML = '';
+    liEl.innerText = 'Something went wrong. Try again.';
+    countriesList.appendChild(liEl);
+  }
+
+  function wrongInputStatementCurrency() {
+    secLi = document.createElement('li');
+    currencyList.innerHTML = '';
+    secLi.innerText = 'Something went wrong. Try again.';
+    currencyList.appendChild(secLi);
+  }
+  
 
 
